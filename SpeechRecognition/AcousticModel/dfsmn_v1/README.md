@@ -1,7 +1,7 @@
 # 语音识别中基于CNN+DFSMN的声学模型实现及代码开源
 本模型是在传统CNN模型的基础上，引入2018年阿里提出的声学模型DFSMN，论文地址：https://arxiv.org/pdf/1803.05030.pdf。
 
-该声学模型使用的输入是经过fbank特征提取以后的具有16ms采样率，单声道音频数据。模型整体的语音识别框架使用的是Github：https://github.com/audier/DeepSpeechRecognition。
+该声学模型使用的输入是具有16KHZ采样率，单声道音频数据经过fbank特征提取以后的特征数据。模型整体的语音识别框架使用的是Github：https://github.com/audier/DeepSpeechRecognition。
 
 在该模块中，主要包含了以下4个部分内容：
 * [模型实现代码](#模型实现代码)
@@ -188,27 +188,14 @@ def opt_init (self):
 #### 1.模型训练
 cnn_dfsmn模型的训练通过调用文件中的函数`dfsmn_model_train`实现，该函数以一个参数作为输入:
 
-(1)**train_data_path**，该参数指定训练数据所在路径；
+（1）**train_data_path**，该参数指定训练数据所在路径；
+
+（2）**label_data_path**，该参数指定标注数据所在路径；
 
 #### 2.模型在线解码
 cnn_dfsmn模型的在线解码通过调用文件中的函数`dfsmn_model_decode`实现，该函数以一个参数作为输入：
 
 （1）**wav_file_path**，该参数指定了待解码音频文件路径；
-## 模型训练数据
-(引用https://github.com/audier/DeepSpeechRecognition)
-
-包括stc、primewords、Aishell、thchs30四个数据集，共计约430小时, 相关链接：http://www.openslr.org/resources.php
-
-数据标签整理在LabelData路径下，其中primewords、st-cmd目前未区分训练集测试集。
-
-若需要使用所有数据集，只需解压到统一路径下，然后设置utils.py中datapath的路径即可。
-
-Name | train | dev | test
---- | --- | --- | ---
-aishell | 120098 | 14326 | 7176
-primewords | 40783 | 5046 | 5073
-thchs-30 | 10000 | 893 | 2495
-st-cmd | 10000 | 600 | 2000
 
 ## 已训练模型库
 本模型已训练完的模型文件位于目录：`/NlpModel/SpeechRecognition/AcousticModel/dfsmn/ModelMemory/`。
